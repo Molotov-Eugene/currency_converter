@@ -1,10 +1,16 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
+import { CurrencyList } from './CurrencyList';
 import { useState, useEffect } from 'react';
-import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
+import { Button,
+  ButtonGroup,
+  Dropdown,
+  ButtonToolbar,
+  Nav,
+ } from 'react-bootstrap';
 
-function App() {
+ function App() {
   const [userCurrency, setUserCurrency] = useState('USD');
 
   const getUserIPData = async () => {
@@ -19,30 +25,51 @@ function App() {
 
   return (
     <div className="App">
-      <Header className="App-header">
-        <ButtonGroup aria-label='language'>
-          <Dropdown>
-            <Dropdown.Toggle variant="info" id="dropdown-currency">
-              {userCurrency}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item>USD</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          <Button variant="secondary">
-            Rus🇷🇺
-          </Button>
-          <Button variant="secondary">
-            Eng🇺🇸
-          </Button>
-        </ButtonGroup>
+      <Header>
+        <PagesBtns>
+          <Nav variant="pills" defaultActiveKey="/list">
+            <Nav.Item>
+              <Nav.Link href="/list">List</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="/converter">Converter</Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </PagesBtns>
+        <div className="control-buttons">
+          <ButtonToolbar>
+            <Dropdown>
+              <Dropdown.Toggle variant="outline-success" id="dropdown-currency">
+                {userCurrency}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item>USD</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            <ButtonGroup aria-label='language'>
+              <Button variant="outline-secondary">
+                Rus🇷🇺
+              </Button>
+              <Button variant="outline-secondary">
+                Eng🇺🇸
+              </Button>
+            </ButtonGroup>
+          </ButtonToolbar>
+        </div>
       </Header>
+      <CurrencyList></CurrencyList>
     </div>
   );
 }
 
 const Header = styled.div`
-  float: right;
+  display: flex;
+  background-color: #111;
+  padding: 10px;
+`
+
+const PagesBtns = styled.div`
+  flex-grow: 1;
 `
 
 
